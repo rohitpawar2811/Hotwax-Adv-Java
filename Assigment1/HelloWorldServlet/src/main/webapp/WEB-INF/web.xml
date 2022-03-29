@@ -1,0 +1,18 @@
+
+
+<web-app>
+  <display-name>Archetype Created Web Application</display-name>
+  <servlet>
+    <servlet-name>Serv</servlet-name>
+    <servlet-class>main.webapp.com.demo.rohit.index</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Serv</servlet-name>
+    <url-pattern>/hello</url-pattern>
+  </servlet-mapping>
+
+
+
+
+
+</web-app>
