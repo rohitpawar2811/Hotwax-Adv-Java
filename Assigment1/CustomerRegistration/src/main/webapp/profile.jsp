@@ -1,3 +1,10 @@
+  <%
+    Object u = session.getAttribute("currentUser");
+    if(u==null){
+       response.sendRedirect("login.jsp");
+    }
+  %>
+
 <!doctype html>
  <html lang="en">
    <head>

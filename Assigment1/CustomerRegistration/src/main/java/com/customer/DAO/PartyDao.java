@@ -73,6 +73,31 @@ public class PartyDao {
     }
 
 
+    public LoginParty getUserByEmail(String userEmail){
+        LoginParty user=null;
+
+        try {
+            String query="Select * from userlogin where userLoginId=? ";
+
+            PreparedStatement  prepareStatement=con.prepareStatement(query);
+            prepareStatement.setString(1,userEmail);
+
+
+            ResultSet rs= prepareStatement.executeQuery();
+            if(rs.next()){
+                user=new LoginParty();
+                user.setPartyID(rs.getInt(3));
+                user.setLoginPID(rs.getString("userLoginId"));
+                user.setPassword(rs.getString("password"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return user;
+
+    }
+
+
 
 
 
