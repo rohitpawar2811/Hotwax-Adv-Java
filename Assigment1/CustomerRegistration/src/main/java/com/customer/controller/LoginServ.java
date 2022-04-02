@@ -37,7 +37,7 @@ public class LoginServ extends HttpServlet {
             HttpSession session= request.getSession(true);
             session.setAttribute("currentUser",user);
             out.println("done");
-            response.sendRedirect("./profile.jsp");
+//            response.sendRedirect("./profile.jsp");
         }
         else{
             //Password wrong case
