@@ -128,18 +128,24 @@
               $("#form-submit").on("submit",(e)=>{
                    e.preventDefault();
                    console.log("hii");
-
-                   let data=new FormData(document.getElementById('form-submit'));
-                   for(let a of data){
-                       console.log(a);
+                   let obj2 = {}
+                   let fdata = new FormData(document.getElementById('form-submit'));
+                   for(let a of fdata.entries()){
+                       key = a[0];
+                       value = a[1];
+                       obj2[key]=value;
+                   }
+                   let obj={
+                   "fname":"Rohit pawar",
+                    "lname":"pawar"
                    }
                    if($("#check").is(":checked")){
-                          let res=validate(data);
+                          let res=validate(fdata);
 
                            $.ajax({
                                url: "RegisterServ",
                                type: 'POST',
-                               data: data,
+                               data : obj2,
                                success: function(data, textStatus, jqXHR) {
                                    console.log("you successfully looged in" + data);
                                    if (data.toString().localeCompare("done") == 0) {
@@ -182,9 +188,8 @@
                                            text: "Technical error",
                                            icon: "warning",
                                        });
-                                   },
-                                   processData: false,
-                                   contentType: false
+                                   }
+
                                });
 
                    }

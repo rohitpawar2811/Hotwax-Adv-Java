@@ -15,14 +15,14 @@
     <url-pattern>/RegisterServ</url-pattern>
   </servlet-mapping>
 
-  <servlet>
-    <servlet-name>LoginServ</servlet-name>
-    <servlet-class>com.customer.controller.RegisterServ</servlet-class>
-  </servlet>
+<!--  <servlet>-->
+<!--    <servlet-name>LoginServ</servlet-name>-->
+<!--    <servlet-class>com.customer.controller.RegisterServ</servlet-class>-->
+<!--  </servlet>-->
 
-  <servlet-mapping>
-    <servlet-name>RegisterServ</servlet-name>
-    <url-pattern>/RegisterServ</url-pattern>
-  </servlet-mapping>
+<!--  <servlet-mapping>-->
+<!--    <servlet-name>RegisterServ</servlet-name>-->
+<!--    <url-pattern>/RegisterServ</url-pattern>-->
+<!--  </servlet-mapping>-->
 
 </web-app>

@@ -10,8 +10,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -27,6 +25,7 @@ public class RegisterServ extends HttpServlet {
 
         PartyCustomer partyC = new PartyCustomer();
         LoginParty partyL = new LoginParty();
+
         partyC.setFname( req.getParameter("fname") );
         partyC.setLname(req.getParameter("lname"));
         partyC.setAddress( req.getParameter("address") );
@@ -48,8 +47,7 @@ public class RegisterServ extends HttpServlet {
             s.setAttribute("currentUser", partyL);
 
         } else {
-
-
+            //do nothing that means either server-db internal error/user already existed
         }
     }
 
