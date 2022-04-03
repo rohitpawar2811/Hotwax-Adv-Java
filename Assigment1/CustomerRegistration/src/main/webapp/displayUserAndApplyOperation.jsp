@@ -38,13 +38,11 @@
 
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script>
+        function delete1(pid) {
 
-        $('document').ready(()=>{
+           console.log("hii");
 
-
-
-
-        });
+        }
 
         function update(pid){
 
@@ -199,13 +197,39 @@
                     </div>
 
                     <div class="p-3 m-1">
-                        <a class="btn btn-danger btn-lg" onclick="delete(<%=lp.getPartyID()%>)" id="del<%=lp.getPartyID()%>">Delete</a>
+                        <button type="button" class="btn btn-lg btn-danger" data-toggle="modal" data-target="#exampleModal<%=lp.getPartyID()%>">
+                           Delete
+                        </button>
                     </div>
 
                 </div>
 
+
+
             </div>
         </div>
+
+        <!-- Modal -->
+                        <div class="modal fade" id="exampleModal<%=lp.getPartyID()%>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                          <div class="modal-dialog">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
+                              </div>
+                              <div class="modal-body">
+                                do You Really want to delete your profile
+                                really....
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <a href="./deleteServ?pid=<%=lp.getPartyID()%>" class="btn btn-primary">Confirm</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
         <%
 
               }

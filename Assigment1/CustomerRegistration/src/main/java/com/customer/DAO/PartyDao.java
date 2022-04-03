@@ -171,4 +171,28 @@ public class PartyDao {
         return b;
 
     }
+
+    public Boolean deleteParty(int pid) {
+        Boolean b=false;
+        try {
+            String query = " delete from userlogin Where partyId=? ";
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setInt(1,pid);
+            ps.executeUpdate();
+
+
+            query = " delete from Party Where partyId=? ";
+            ps = con.prepareStatement(query);
+            ps.setInt(1,pid);
+            ps.executeUpdate();
+
+
+            ps.close();
+            b=true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+         return b;
+    }
+
 }
