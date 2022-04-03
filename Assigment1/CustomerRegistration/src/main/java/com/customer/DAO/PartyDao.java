@@ -5,6 +5,10 @@ import com.customer.model.PartyCustomer;
 
 import java.io.IOException;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -29,7 +33,6 @@ public class PartyDao {
             if(getData.next()){
                 getData.close();
                 prepareS.close();
-                con.close();
                 return  false;
             }
             else{
@@ -62,7 +65,7 @@ public class PartyDao {
                  ps.executeUpdate();
                  getDataRSet.close();
                  ps.close();
-                 con.close();
+
                  b=true;
             }
 
@@ -97,9 +100,75 @@ public class PartyDao {
 
     }
 
+    public ArrayList<HashMap<LoginParty,PartyCustomer>> getUsers(){
+        ArrayList<HashMap<LoginParty,PartyCustomer>> userList = new ArrayList<>();
+
+        try {
+            String query = " Select party.partyId,party.fname,party.lname,party.address,party.city,party.zip,party.state,party.country,party.phone,userLogin.UserLoginId,userLogin.password from userlogin natural join party ";
+            PreparedStatement  prepareStatement = con.prepareStatement(query);
+
+            ResultSet rs = prepareStatement.executeQuery();
+
+            while(rs.next()){
+                HashMap<LoginParty,PartyCustomer> map = new HashMap<>();
+
+                LoginParty user = new LoginParty();
+                PartyCustomer user2 = new PartyCustomer();
+
+                user.setPartyID(rs.getInt(1));
+                user.setLoginPID(rs.getString(10));
+                user.setPassword(rs.getString(11));
+                user2.setPid(1);
+                user2.setFname(rs.getString(2));
+                user2.setLname(rs.getString(3));
+                user2.setAddress(rs.getString(4));
+                user2.setCity(rs.getString(5));
+                user2.setZip(rs.getString(6));
+                user2.setState(rs.getString(7));
+                user2.setCountry(rs.getString(8));
+                user2.setPhone(rs.getString(9));
+
+                map.put(user,user2);
+                userList.add(map);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return userList;
+
+    }
 
 
+    public Boolean UpdateParty(PartyCustomer party, LoginParty login) {
+         Boolean b=false;
+        try{
+        String query = "update Party Set fname=?,lname=?,address=?,city=?,zip=?,state=?,country=?,phone=? Where partyId=? ";
+        PreparedStatement ps = con.prepareStatement(query);
+        ps.setString(1, party.getFname());
+        ps.setString(2, party.getLname());
+        ps.setString(3 , party.getAddress());
+        ps.setString(4 , party.getCity());
+        ps.setString(5 , party.getZip());
+        ps.setString(6 , party.getState());
+        ps.setString(7 , party.getCountry());
+        ps.setString(8 , party.getPhone());
+        ps.setInt(9,login.getPartyID());
+        ps.executeUpdate();
 
 
+        query ="update userlogin Set userLoginId=?,password=? Where PartyId=?";
+        ps = con.prepareStatement(query);
+        ps.setString(1, login.getLoginPID());
+        ps.setString(2 , login.getPassword());
+        ps.setInt(3 ,login.getPartyID());
 
+        ps.executeUpdate();
+        ps.close();
+        b=true;
+    } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return b;
+
+    }
 }
