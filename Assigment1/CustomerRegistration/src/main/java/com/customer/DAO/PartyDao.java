@@ -195,4 +195,63 @@ public class PartyDao {
          return b;
     }
 
+
+
+    public ArrayList<HashMap<LoginParty,PartyCustomer>> search(String type,String text ){
+        ArrayList<HashMap<LoginParty,PartyCustomer>> userList = new ArrayList<>();
+                text="%"+text+"%";
+        try {
+            String query = "";
+            if(type.equals("fname")) {
+                query = "Select  fname,lname,address,city,zip,state,country,phone,partyId from party where fname like ? ";
+            }
+            else{
+                query = "Select fname,lname,address,city,zip,state,country,phone,partyId from party where lname like ? ";
+            }
+            PreparedStatement  prepareStatement = con.prepareStatement(query);
+            prepareStatement.setString(1,text);
+            ResultSet rs = prepareStatement.executeQuery();
+
+            while(rs.next()){
+                HashMap<LoginParty,PartyCustomer> map = new HashMap<>();
+
+
+                PartyCustomer user2 = new PartyCustomer();
+
+
+
+                user2.setFname(rs.getString(1));
+                user2.setLname(rs.getString(2));
+                user2.setAddress(rs.getString(3));
+                user2.setCity(rs.getString(4));
+                user2.setZip(rs.getString(5));
+                user2.setState(rs.getString(6));
+                user2.setCountry(rs.getString(7));
+                user2.setPhone(rs.getString(8));
+                user2.setPid(Integer.parseInt(rs.getString(9)));
+
+                String query1 = "select userLoginId from userlogin where partyId=? ";
+                PreparedStatement  ps3  = con.prepareStatement(query1);
+                ps3.setInt(1,user2.getPid());
+
+                ResultSet rs1 = ps3.executeQuery();
+
+                LoginParty user = new LoginParty();
+                if(rs1.next()) {
+                    user.setLoginPID(rs1.getString(1));
+                }
+                else{
+                    user.setLoginPID("fhbkjk");
+                }
+                map.put(user,user2);
+                userList.add(map);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return userList;
+
+    }
+
+
 }

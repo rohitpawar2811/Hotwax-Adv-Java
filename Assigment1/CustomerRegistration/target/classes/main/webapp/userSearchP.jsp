@@ -59,7 +59,7 @@
        /*Resize the wrap to see the search bar change!*/
        .wrap{
          width: 30%;
-         position: absolute;
+         position: fixed;
          top: 50%;
          left: 50%;
          transform: translate(-50%, -50%);
@@ -85,39 +85,34 @@
   </div>
 
   <div class="container text-center">
-       <div class=" m-2 ml-5 card bg-warning mt-3 text-center">
-            <div class="form-check">
+     <div class="container col-sm-8 offset-2">
+       <div class=" m-2 ml-5 card bg-warning mt-3 text-center" style="border-radius:15px;">
+            <div class="form-check" id="check">
               <input class="form-check-input" type="radio" name="choice" id="exampleRadios1" value="1" checked>
               <label class="form-check-label h4" for="exampleRadios1">
                  first name
               </label>
-            </div>
-            <div class="form-check">
+             <br>
+
               <input class="form-check-input" type="radio" name="choice" id="exampleRadios2" value="2">
               <label class="form-check-label h4" for="exampleRadios2">
                   last name
               </label>
             </div>
        </div>
+      </div>
       <div class="wrap">
          <div class="search">
-            <input type="text" class="searchTerm" placeholder="What are you looking for?">
-            <button type="submit" class="searchButton">
+            <input type="text" id="search-text" class="searchTerm" placeholder="What are you looking for?" required>
+            <button type="submit"  id="search-btn" class="searchButton">
                Search
            </button>
          </div>
       </div>
   </div>
 
-  <div class="container">
-    <div class="table-responsive">
-        <table class="table table-stripped">
-             <tr>
-               <th></td>
-               <th></td>
-               <td>
-             </tr>
-        </table>
+  <div class="container" id="show-data" style="margin-top:100px;">
+
     </div>
   </div>
 
@@ -131,7 +126,71 @@
 
            <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
+<script>
 
+$("document").ready(()=>{
+
+    let searchOn = $('#check input:checked').val()
+
+    $('#check').on("change",()=>{
+         searchOn= $('#check input:checked').val();
+         console.log(searchOn);
+    });
+
+    $('#search-btn').on("click",(e)=>{
+        e.preventDefault();
+
+        if($.trim(searchOn)==1){
+             //Fname search
+             fnameSearch();
+
+        }
+        else{
+            //Lname search
+            lnameSearch();
+        }
+
+    });
+
+
+
+});
+
+function fnameSearch(){
+  let text = $("#search-text").val()
+  $.ajax({
+     url:"processSearchData.jsp?search="+text+"&&type=fname",
+     type:"GET",
+     success: function(data, textStatus, jqXHR) {
+         console.log(data);
+         $('#show-data').html("");
+         $('#show-data').html(data);
+     },
+     error: function(data, textStatus, jqXHR) {
+                console.log(data)
+          console.log("error");
+     }
+
+  });
+}
+
+function lnameSearch(){
+ let text = $("#search-text").val()
+ $.ajax({
+      url:"processSearchData.jsp?search="+text+"&&type=lname",
+      type:"GET",
+      success: function(data, textStatus, jqXHR) {
+          console.log(data);
+          $('#show-data').html(data);
+      },
+      error: function(data, textStatus, jqXHR) {
+           console.log(data)
+           console.log("error");
+      }
+
+   });
+}
+</script>
 
   </body>
   </html>
