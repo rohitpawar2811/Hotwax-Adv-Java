@@ -47,11 +47,12 @@
                 <td><%=pc.getState()%></td>
                 <td><%=pc.getPhone()%></td>
              </tr>
+             <%
+                    cnt++;
+                  }
+
+                  %>
 
         </table>
-     <%
-       cnt++;
-     }
 
-     %>
 

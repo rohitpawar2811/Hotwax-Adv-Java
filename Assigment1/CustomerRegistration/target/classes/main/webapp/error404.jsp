@@ -11,16 +11,10 @@
 </head>
 <body>
     <!-- Nav Bar -->
-<nav class="navbar navbar-dark bg-dark">
-    <div class="container">
-        <span class="navbar-brand mb-0 h1">MIKE</span>
-        <a href="registration.html" class="btn btn-outline-success" role="button">Sign Up</a>
-    </div>
-</nav>
+
     <div class="p-5 mb-4 bg-light rounded-3">
       <div class="container-fluid py-5">
         <h1 class="display-5 fw-bold">404 Error! Page Not Found.</h1>
-        <p class="col-md-8 fs-4">This is probably Roneet's mistake.</p>
         <button class="btn btn-primary btn-medium" type="button">Back</button>
       </div>
 </body>
