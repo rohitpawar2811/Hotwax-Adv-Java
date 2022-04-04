@@ -3,6 +3,19 @@
 <%@page import="com.customer.helper.*" %>
 <%@page import="com.customer.DAO.*" %>
 
+<div class="table-responsive">
+        <table class="table table-stripped">
+             <tr>
+               <th>S.No</th>
+               <th>Fname</th>
+               <th>Lname</th>
+               <th>Email</th>
+               <th>City</th>
+               <th>Country</th>
+               <th>State</th>
+               <th>Mobile</th>
+             </tr>
+
 <%
 
      String type=request.getParameter("type");
@@ -23,18 +36,7 @@
 
   %>
 
- <div class="table-responsive">
-        <table class="table table-stripped">
-             <tr>
-               <th>S.No</th>
-               <th>Fname</th>
-               <th>Lname</th>
-               <th>Email</th>
-               <th>City</th>
-               <th>Country</th>
-               <th>State</th>
-               <th>Mobile</th>
-             </tr>
+
              <tr>
                 <td><%=cnt%></td>
                 <td><%=pc.getFname()%></td>

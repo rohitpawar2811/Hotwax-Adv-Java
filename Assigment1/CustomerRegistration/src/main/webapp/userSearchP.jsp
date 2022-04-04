@@ -71,7 +71,7 @@
   </head>
   <body>
   <!-- this is including -->
-  <%@ include file = "navbar.html" %>
+  <%@ include file = "navbarAfterLogin.html" %>
   <div class ="container text-center">
       <div class="container w-50 h-50">
           <div class="msg-container text-center  card shadow-lg ">

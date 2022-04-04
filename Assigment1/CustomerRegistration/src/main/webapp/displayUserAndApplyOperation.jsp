@@ -3,14 +3,12 @@
  <%@page import="com.customer.helper.*" %>
  <%@page import="com.customer.DAO.*" %>
 
-
  <%
     Object u = session.getAttribute("currentUser");
     if(u==null){
        response.sendRedirect("login.jsp");
     }
   %>
-
 
 <!doctype html>
 <html lang="en">
@@ -103,9 +101,6 @@
 
 
 
-
-
-
     <title>Document</title>
 </head>
 <body>
@@ -136,11 +131,13 @@
              }
 
        %>
-        <div class="card col-md-8 offset-2 shadow " style="border-radius:20px;">
+        <div class="card mt-3 col-md-8 offset-2 shadow " style="border-radius:20px;">
             <div class="card-header rounded-lg display-4 ">
               <%=pc.getFname()%> <%=pc.getLname()%>
             </div>
             <div class="card-body d-flex flex-column">
+
+                <!--container 1-->
                 <div class="container col-md-8">
 
                     <!--    form for updating user data -->
@@ -189,7 +186,7 @@
                         </div>
                     </form>
                 </div>
-
+                <!--container 2-->
                 <div class="container mt-2 col-md-8 d-flex flex-row justify-content-center">
 
                     <div class="p-3 m-1">
@@ -201,35 +198,15 @@
                            Delete
                         </button>
                     </div>
-
                 </div>
-
-
-
             </div>
         </div>
 
+
         <!-- Modal -->
-                        <div class="modal fade" id="exampleModal<%=lp.getPartyID()%>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                          <div class="modal-dialog">
-                            <div class="modal-content">
-                              <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                  <span aria-hidden="true">&times;</span>
-                                </button>
-                              </div>
-                              <div class="modal-body">
-                                do You Really want to delete your profile
-                                really....
-                              </div>
-                              <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <a href="./deleteServ?pid=<%=lp.getPartyID()%>" class="btn btn-primary">Confirm</button>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
+
+
+
         <%
 
               }
@@ -237,13 +214,46 @@
         %>
 
     </div>
-
-
 </div>
 
 
+<%
+ for(HashMap<LoginParty,PartyCustomer> user : listU){
+         LoginParty lp=null;
+         PartyCustomer pc=null;
 
+         for( Map.Entry<LoginParty,PartyCustomer> pair : user.entrySet()){
+               lp = pair.getKey();
+               pc = pair.getValue();
+         }
 
+%>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal<%=lp.getPartyID()%>" tabindex="-1" aria-labelledby="exampleModalLabel<%=lp.getPartyID()%>" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel<%=lp.getPartyID()%>">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Do You really Want to delete data
+      </div>
+      <div class="modal-footer">
+         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+         <button type="button" class="btn btn-primary" onclick="location.href = './deleteServ?pid=<%=lp.getPartyID()%>';"   class="float-left submit-button" >Confirm</button>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<%
+   }
+%>
 
 
 
