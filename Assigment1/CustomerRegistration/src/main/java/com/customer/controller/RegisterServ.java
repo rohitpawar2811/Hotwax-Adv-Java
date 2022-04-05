@@ -3,6 +3,7 @@ package com.customer.controller;
 
 import com.customer.DAO.PartyDao;
 import com.customer.helper.ConnectionProvider;
+import com.customer.helper.MailApi;
 import com.customer.model.LoginParty;
 import com.customer.model.PartyCustomer;
 
@@ -42,9 +43,13 @@ public class RegisterServ extends HttpServlet {
         PartyDao save = new PartyDao(ConnectionProvider.getConnection());
         Boolean Status = save.insertParty( partyC , partyL);
         if (Status) {
+            String mailMessage = " You have successfully Signup on Hotwax enjoy leaning ";
+            String mailSubject ="Hotwax auth";
+            MailApi.sendMail(mailMessage , mailSubject , partyL.getLoginPID());
             out.print("done");
             HttpSession s = req.getSession();
             s.setAttribute("currentUser", partyL);
+
 
         } else {
             //do nothing that means either server-db internal error/user already existed
