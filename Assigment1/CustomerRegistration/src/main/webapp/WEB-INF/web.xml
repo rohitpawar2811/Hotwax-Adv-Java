@@ -30,5 +30,8 @@
     <location>/error404.jsp</location>
   </error-page>
 
+  <session-config>
+    <session-timeout>5</session-timeout>
+  </session-config>
 
 </web-app>
