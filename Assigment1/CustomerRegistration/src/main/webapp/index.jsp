@@ -25,9 +25,6 @@
                          <br>
                          AAj Ki party
                          <br>
-                         Mari Taraf saa
-                         <br>
-                         Enjoy
                      </div>
                 </div>
             </div>
